@@ -6,8 +6,8 @@ apis:
     name: Apivault
     tags:
       - Keys
-      - Vaults
       - Secrets
+      - Vaults
     humanURL: ' https://apivault.dev/'
     properties:
       - url: ' https://apivault.dev/'
@@ -17,8 +17,8 @@ apis:
 name: Apivault
 tags:
   - Keys
-  - Vaults
   - Secrets
+  - Vaults
 type: Index
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
