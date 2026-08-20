@@ -6,6 +6,12 @@ tags:
   - API Catalog
   - API Directory
   - API Discovery
+  - Open-Source
+  - Public APIs
+tags_raw:
+  - API Catalog
+  - API Directory
+  - API Discovery
   - Open Source
   - Public APIs
 type: Index
@@ -36,6 +42,12 @@ apis:
   - aid: apivault:apivault
     name: Apivault
     tags:
+      - API Catalog
+      - API Directory
+      - API Discovery
+      - Open-Source
+      - Public APIs
+    tags_raw:
       - API Catalog
       - API Directory
       - API Discovery
