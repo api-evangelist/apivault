@@ -1,0 +1,65 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://github.com/exa-studio/ApiVault/releases (and its .atom feed), the
+  published OpenAPI at https://api.apivault.dev/api/schema/, and live probes of
+  apivault.dev — all 2026-09-04.
+versioning:
+  scheme: product-release-tags
+  current: 2.1.0
+  current_source: info.version in the deployed OpenAPI
+  latest_release: v2.2.4
+  latest_release_date: '2024-09-06'
+  latest_release_url: https://github.com/exa-studio/ApiVault/releases/tag/v2.2.4
+  in_transport: false
+  docs: https://github.com/exa-studio/ApiVault/releases
+  note: >-
+    Versions are release tags on the open-source project, not API versions. The
+    HTTP surface carries no version at all — no path segment, header or
+    parameter — so a client cannot pin one. The deployed schema still reports
+    2.1.0 (the release of 2023-07-05) although the repository has since shipped
+    v2.2.0, v2.2.1 and v2.2.4.
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    No deprecation policy, no RFC 8594 Sunset/Deprecation header support, and
+    no notice period is published anywhere. NO `Deprecation` pointer is
+    emitted.
+deprecated_operations: []
+deprecated_operations_note: >-
+  Zero of the eighteen operations in openapi/_original/apivault-openapi.yml
+  carry `deprecated: true`.
+sla:
+  url: null
+  uptime_target: null
+  note: No SLA, no uptime commitment, no support tier is published.
+status_page:
+  url: null
+  published: false
+  note: >-
+    ApiVault publishes NO status page. https://apivault.dev/status returns 200
+    but the body is nginx's stub_status module output ("Active connections: 27
+    / server accepts handled requests …") — a raw metrics endpoint leaking from
+    the reverse proxy, not an incident-communication surface. It has no
+    incident history, no component list and no subscribe path, so it is NOT
+    recorded as a status page and NO `StatusPage` pointer is emitted. It is
+    also arguably an information-disclosure issue worth reporting upstream.
+  evidence:
+    - {url: 'https://apivault.dev/status', status: 200, body_kind: nginx-stub_status}
+maintenance:
+  project_status: >-
+    The open-source project's last release is v2.2.4, 2024-09-06 — roughly two
+    years before this pass. The hosted service at api.apivault.dev is live and
+    answering (1,454 APIs catalogued, verified 2026-09-04), so the service is
+    running but the codebase is quiet.
+  archived: false
+  license: CC BY-NC-ND 4.0
+  license_url: https://github.com/exa-studio/ApiVault/blob/main/LICENSE
+  org_rename:
+    note: >-
+      The GitHub org was renamed Exifly -> exa-studio. github.com/Exifly/ApiVault
+      301s to github.com/exa-studio/ApiVault. Both are recorded because
+      raw.githubusercontent.com follows the rename and the old URLs still work.

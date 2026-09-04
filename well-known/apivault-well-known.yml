@@ -1,0 +1,67 @@
+generated: '2026-09-04'
+method: probed
+source: >-
+  Live HTTPS GETs of the named /.well-known/ path list against every host this
+  record knows: the registrable domain apivault.dev and the API host
+  api.apivault.dev (the OpenAPI at https://api.apivault.dev/api/schema/ ships
+  no servers[] block, so api.apivault.dev is the observed host). www.apivault.dev
+  does not resolve (NXDOMAIN) and was therefore not probed.
+hit_count: 0
+note: >-
+  ApiVault serves no /.well-known/ discovery surface on either host. Every path
+  in the closed list returned 404 on both. NO WellKnown and NO SecurityTxt
+  pointer is emitted for this repo — this file records a measured absence, not
+  a presence. The two hosts fail differently and both are genuine 404s: the
+  Nuxt frontend on apivault.dev answers 404 with either its SPA error shell or
+  a JSON {"statusCode":404} body, and the nginx in front of the Django backend
+  on api.apivault.dev answers a plain nginx 404 page.
+path_echo_control: passed
+soft_404_control:
+  note: >-
+    The negative-control path /.well-known/apivault-negative-control-7f3ab91c.json
+    cannot exist. Both hosts returned 404 for it, so neither is a path-echoing
+    or catch-all host and the 404s above are trustworthy.
+  apivault.dev: {status: 404, bytes: 258}
+  api.apivault.dev: {status: 404, bytes: 564}
+hosts:
+  - host: https://apivault.dev
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/api-catalog.json, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/apis.json, status: 404}
+      - {path: /.well-known/aauth-resource.json, status: 404}
+      - {path: /.well-known/ucp.json, status: 404}
+      - {path: /.well-known/acp.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+      - {path: /apis.json, status: 404}
+      - {path: /apis.yml, status: 404}
+      - {path: /.well-known/apivault-negative-control-7f3ab91c.json, status: 404}
+  - host: https://api.apivault.dev
+    documents:
+      - {path: /.well-known/security.txt, status: 404}
+      - {path: /.well-known/openid-configuration, status: 404}
+      - {path: /.well-known/oauth-authorization-server, status: 404}
+      - {path: /.well-known/oauth-protected-resource, status: 404}
+      - {path: /.well-known/api-catalog, status: 404}
+      - {path: /.well-known/api-catalog.json, status: 404}
+      - {path: /.well-known/ai-plugin.json, status: 404}
+      - {path: /.well-known/apis.json, status: 404}
+      - {path: /.well-known/aauth-resource.json, status: 404}
+      - {path: /.well-known/ucp.json, status: 404}
+      - {path: /.well-known/acp.json, status: 404}
+      - {path: /.well-known/agent-card.json, status: 404}
+      - {path: /.well-known/agent.json, status: 404}
+      - {path: /apis.json, status: 404}
+      - {path: /apis.yml, status: 404}
+      - {path: /.well-known/apivault-negative-control-7f3ab91c.json, status: 404}
+x-notable: >-
+  An API directory that does not publish an APIs.json index of its own is a
+  finding worth reporting back to the provider: /apis.json and
+  /.well-known/apis.json both 404 on apivault.dev, so the catalog that exists
+  to make public APIs discoverable is itself not machine-discoverable.

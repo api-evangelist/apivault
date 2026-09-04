@@ -1,0 +1,25 @@
+generated: '2026-09-04'
+method: generated
+source: >-
+  Grounded in openapi/_original/apivault-openapi.yml (harvested from
+  https://api.apivault.dev/api/schema/ on 2026-09-04). Every operationId
+  referenced by every skill exists verbatim in that document. The provider
+  publishes no skills, no AGENTS.md and no agent guidance of its own — searched
+  https://apivault.dev/ and https://github.com/exa-studio/ApiVault on
+  2026-09-04.
+skills:
+  - file: apivault-browse-the-catalog.md
+    name: Browse the ApiVault catalog
+    api: openapi/apivault-api-openapi.yml
+    auth: none
+    operations: [count_retrieve, categories_list, categories_trending_list, all_list, category_list, detail_retrieve]
+  - file: apivault-search-the-catalog.md
+    name: Search ApiVault for an API
+    api: openapi/apivault-api-openapi.yml
+    auth: none
+    operations: [search_list, categories_list, detail_retrieve]
+  - file: apivault-submit-and-like.md
+    name: Submit an API and manage likes on ApiVault
+    api: openapi/apivault-api-openapi.yml
+    auth: bearer-jwt
+    operations: [auth_google_create, auth_token_verify_create, auth_token_refresh_create, auth_user_retrieve, categories_list, create_create, my_api_retrieve, pending_my_api_retrieve, interaction_like_create, interaction_like_destroy, interaction_feedback_create]

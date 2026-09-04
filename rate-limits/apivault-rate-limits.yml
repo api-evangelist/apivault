@@ -3,90 +3,59 @@ specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
 provider: Apivault
 providerId: apivault
+generated: '2026-09-04'
 created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-04'
-tags:
-  - API Catalog
-  - API Directory
-  - API Discovery
-  - Open Source
-  - Public APIs
-  - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Apivault API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
+modified: '2026-09-04'
+method: probed
+source: >-
+  Live response headers from https://api.apivault.dev (GET /api/count,
+  /api/all, /api/categories, /api/random and the 401/404/406/500 paths in
+  errors/apivault-problem-types.yml) on 2026-09-04, plus a search of
+  https://apivault.dev/ and https://github.com/exa-studio/ApiVault for any
+  published limit. Django REST Framework throttle classes are configured
+  nowhere in backend/apivault/settings.py.
+limit_count: 0
+rate_limits: []
+note: >-
+  ApiVault documents no rate limits and signals none at runtime. Not one of
+  X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset,
+  RateLimit-Limit, RateLimit-Remaining, RateLimit-Reset, RateLimit-Policy or
+  Retry-After appeared on any observed response, and no 429 was ever returned.
+  An agent has no runtime signal to back off on — the honest zero IS the
+  finding. Cloudflare sits in front of api.apivault.dev, so an undocumented
+  edge protection may exist, but it is not advertised and cannot be planned
+  against.
+  THIS REPLACES A SCAFFOLD. The previous version of this file was written by
+  the 2026-05-04 bulk sweep (method: generated) and declared an
+  X-RateLimit-*/Retry-After/RateLimit-Policy header set and a 429 throttled
+  response code. None of those headers is actually sent. They have been
+  removed rather than carried forward.
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  limit: null
+  remaining: null
+  reset: null
+  retryAfter: null
+  policy: null
+headers_observed: []
+observed_response_headers:
+  url: https://api.apivault.dev/api/count
+  status: 200
+  headers:
+    - date
+    - content-type
+    - content-length
+    - 'server: cloudflare'
+    - 'vary: Accept, origin'
+    - 'allow: GET, HEAD, OPTIONS'
+    - 'x-frame-options: DENY'
+    - 'x-content-type-options: nosniff'
+    - 'referrer-policy: same-origin'
+    - 'cross-origin-opener-policy: same-origin'
+    - 'cf-cache-status: DYNAMIC'
+    - cf-ray
+    - report-to
+    - nel
+    - alt-svc
 responseCodes:
-  throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
-limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Apivault
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Apivault
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Apivault
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Apivault
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Apivault
-policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
-maintainers:
-  - FN: Kin Lane
-    email: info@apievangelist.com
+  throttled: null
+  throttled_note: No 429 observed and no throttled status documented.

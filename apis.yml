@@ -93,6 +93,8 @@ apis:
       can search, discover, submit, and browse APIs across all major domains.
       Licensed under CC BY-NC-ND 4.0.
 common:
+  - type: Website
+    url: https://apivault.dev/
   - type: AgenticAccess
     url: agentic-access/apivault-agentic-access.yml
   - type: Authentication

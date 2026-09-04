@@ -1,0 +1,74 @@
+generated: '2026-09-04'
+method: probed
+source: >-
+  Live requests to https://api.apivault.dev on 2026-09-04. The published
+  OpenAPI (openapi/_original/apivault-openapi.yml) declares ONLY 200/201/204 on
+  every one of its eighteen operations — not a single 4xx or 5xx response is
+  described — so nothing here could be derived from the spec. Every entry below
+  was observed.
+format: drf-detail
+format_note: >-
+  NOT RFC 9457. The envelope is Django REST Framework's default:
+  Content-Type application/json, a single object with one string field
+  `detail`. There is no `type`, `title`, `status` or `instance` member, no
+  application-level error code, and no machine-readable discriminator — an
+  agent has to match on the HTTP status plus English prose.
+envelope:
+  content_type: application/json
+  fields:
+    - {name: detail, type: string, description: Human-readable English message}
+problems:
+  - status: 401
+    detail: Authentication credentials were not provided.
+    meaning: >-
+      No Authorization header on an operation that requires the JWT.
+    remediation: >-
+      Obtain a SimpleJWT via POST /api/auth/google/ (Google sign-in required)
+      and send `Authorization: Bearer <jwt>`.
+    observed_on:
+      - {operationId: auth_user_retrieve, url: 'https://api.apivault.dev/api/auth/user/'}
+      - {operationId: my_api_retrieve, url: 'https://api.apivault.dev/api/my_api'}
+      - {operationId: pending_my_api_retrieve, url: 'https://api.apivault.dev/api/pending/my_api'}
+      - {operationId: create_create, url: 'https://api.apivault.dev/api/create'}
+      - {operationId: interaction_like_create, url: 'https://api.apivault.dev/api/interaction/like/1'}
+      - {operationId: interaction_like_destroy, url: 'https://api.apivault.dev/api/interaction/like/1'}
+    declared_in_spec: false
+  - status: 404
+    detail: Not found.
+    meaning: The addressed record does not exist.
+    remediation: Check the id against GET /api/all or GET /api/search.
+    observed_on:
+      - {operationId: detail_retrieve, url: 'https://api.apivault.dev/api/detail/999999'}
+    declared_in_spec: false
+  - status: 406
+    detail: Could not satisfy the request Accept header.
+    meaning: >-
+      Content negotiation failure. Observed when an Authorization header was
+      sent with a value DRF could not parse alongside the default renderer set.
+    remediation: 'Send the header Accept: application/json.'
+    observed_on:
+      - {operationId: my_api_retrieve, url: 'https://api.apivault.dev/api/my_api'}
+    declared_in_spec: false
+  - status: 500
+    detail: null
+    meaning: >-
+      Unhandled server exception. An unknown category name is not mapped to a
+      404 — it raises and returns Django's HTML "Server Error (500)" page, not
+      JSON, breaking the envelope contract mid-flight for any client that
+      assumes application/json.
+    remediation: >-
+      Validate the category name against GET /api/categories before calling
+      GET /api/category/{category_name}.
+    observed_on:
+      - operationId: category_list
+        url: 'https://api.apivault.dev/api/category/NotARealCategory'
+        content_type: 'text/html; charset=utf-8'
+        body: '<h1>Server Error (500)</h1>'
+    declared_in_spec: false
+    defect: true
+gaps:
+  - No 4xx/5xx response is declared anywhere in the published OpenAPI.
+  - No application-level error codes; only HTTP status plus an English string.
+  - >-
+    An unknown category returns 500 HTML rather than 404 JSON — a reportable
+    defect, not a documented behaviour.

@@ -1,0 +1,150 @@
+generated: '2026-09-04'
+method: probed
+source: >-
+  Derived from openapi/_original/apivault-openapi.yml and confirmed against live
+  requests to https://api.apivault.dev on 2026-09-04, plus the provider's own
+  client (frontend/services/ApivaultServices.ts) and Django source
+  (backend/vault/, backend/interaction/, backend/authentication/) in
+  https://github.com/exa-studio/ApiVault.
+base_url: https://api.apivault.dev
+authentication:
+  style: bearer-jwt
+  header: 'Authorization: Bearer <jwt>'
+  anonymous_reads: true
+  detail: authentication/apivault-authentication.yml
+idempotency:
+  supported: false
+  coverage: none
+  mechanism: null
+  header: null
+  retention: null
+  note: >-
+    No replay protection of any kind. There is no Idempotency-Key header, no
+    client-supplied request id, and no dedupe on the four mutating operations
+    (create_create, interaction_feedback_create, interaction_like_create,
+    interaction_like_destroy). Verified by reading the Django views in
+    backend/vault/api.py and backend/interaction/api.py — no idempotency layer
+    exists — and by the absence of any such parameter in the published spec.
+    Re-POSTing /api/create submits a second copy of the same API for review.
+    NO `Idempotency` pointer is emitted for this repo.
+reversibility:
+  grade: documented
+  coverage: partial
+  note: >-
+    One of the four write operations has a first-class reversal; the other
+    three have none. No window is stated anywhere by the provider, so this
+    grades `documented` and not `verified` — do NOT read a window into it.
+  write_surface:
+    - operationId: interaction_like_create
+      method: POST
+      path: /api/interaction/like/{api_id}
+      reversal:
+        operationId: interaction_like_destroy
+        method: DELETE
+        path: /api/interaction/like/{api_id}
+        kind: delete
+      window:
+        stated: false
+        note: >-
+          The provider states no time limit. The Django view removes the Like
+          row unconditionally, but that is our reading of the source, not a
+          published commitment.
+      evidence: openapi/_original/apivault-openapi.yml
+    - operationId: create_create
+      method: POST
+      path: /api/create
+      reversal: null
+      window: {stated: false}
+      note: >-
+        Submitting an API is one-way from the caller's side. There is no
+        withdraw, cancel or delete operation; the submission lands in a pending
+        queue (visible via pending_my_api_retrieve) and is moderated by
+        ApiVault. Removing it requires contacting the project.
+    - operationId: interaction_feedback_create
+      method: POST
+      path: /api/interaction/feedback
+      reversal: null
+      window: {stated: false}
+      note: Feedback is fire-and-forget; there is no retract operation.
+    - operationId: auth_google_create
+      method: POST
+      path: /api/auth/google/
+      reversal: null
+      window: {stated: false}
+      note: >-
+        No token revocation endpoint is published — /api/auth/token/verify/
+        checks a token but nothing invalidates one. A leaked JWT cannot be
+        withdrawn through the API.
+dry_run_mode:
+  supported: false
+  note: No test mode, no sandbox, no simulation parameter on any operation.
+pagination:
+  supported: false
+  style: none
+  note: >-
+    GET /api/all returns the ENTIRE catalogue in one unpaginated JSON array —
+    1,454 records as of 2026-09-04 (GET /api/count). There are no limit/offset
+    or cursor parameters in the spec, no pagination envelope in the response
+    (the body is a bare array, not {results, next, previous}), and no Link
+    header. Confirmed live. The same is true of /api/search, /api/random and
+    /api/category/{category_name}.
+filtering_and_search:
+  documented_parameters: []
+  undocumented_parameters:
+    - operation: search_list
+      name: query
+      in: query
+      evidence: >-
+        frontend/services/ApivaultServices.ts search() sends
+        /api/search?query=<q>. GET /api/search with no query returns the full
+        list. Absent from the published spec.
+    - operation: category_list
+      name: order
+      in: query
+      evidence: >-
+        frontend/services/ApivaultServices.ts apiCategoryData() sends
+        /api/category/<name>?order=<orderBy>. Absent from the published spec.
+  note: >-
+    The provider's own client depends on two query parameters the published
+    contract does not mention. An agent reading only the spec cannot search.
+field_expansion: {supported: false}
+sparse_fieldsets: {supported: false}
+metadata: {supported: false}
+request_tracing:
+  supported: false
+  note: >-
+    No request-id header is returned. Observed response headers on
+    GET /api/count (2026-09-04) were: date, content-type, content-length,
+    server (cloudflare), vary (Accept, origin), allow, x-frame-options DENY,
+    x-content-type-options nosniff, referrer-policy same-origin,
+    cross-origin-opener-policy same-origin, cf-cache-status DYNAMIC, cf-ray,
+    report-to, nel, alt-svc. Cloudflare's cf-ray is the only correlatable id
+    and it is the edge's, not the application's.
+versioning:
+  scheme: none-in-transport
+  note: >-
+    No version segment in the path (/api/... not /api/v1/...), no version
+    header, no version query parameter. info.version in the spec reads 2.1.0
+    while the project's newest GitHub release is v2.2.4 (2024-09-06); the
+    deployed schema version has not moved since the v2.1.0 release
+    (2023-07-05). A client has no transport-level way to pin a version.
+  detail: lifecycle/apivault-lifecycle.yml
+error_envelope:
+  format: drf-detail
+  shape: '{"detail": "<english string>"}'
+  rfc9457: false
+  detail: errors/apivault-problem-types.yml
+rate_limit_signaling:
+  supported: false
+  note: >-
+    No X-RateLimit-*, no RateLimit-*, no Retry-After on any observed response.
+    No throttle classes are configured in backend/apivault/settings.py.
+  detail: rate-limits/apivault-rate-limits.yml
+content_negotiation:
+  note: >-
+    `Vary: Accept, origin` is returned and a malformed Accept produces a 406
+    with the DRF envelope. Send `Accept: application/json`.
+cors:
+  note: >-
+    django-cors-headers is configured in the backend. Not independently
+    verified against a browser origin in this pass.

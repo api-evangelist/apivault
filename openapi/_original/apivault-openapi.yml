@@ -1,0 +1,547 @@
+openapi: 3.0.3
+info:
+  title: ApiVault
+  version: 2.1.0
+  description: Your gateway to a world of public APIs
+paths:
+  /api/all:
+    get:
+      operationId: all_list
+      description: List all APIs.
+      tags:
+      - all
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/API'
+          description: ''
+  /api/auth/google/:
+    post:
+      operationId: auth_google_create
+      description: |-
+        POST with "auth_token"
+        Send an idtoken as from google to get user information
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoogleSocialAuth'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GoogleSocialAuth'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GoogleSocialAuth'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GoogleSocialAuth'
+          description: ''
+  /api/auth/token/refresh/:
+    post:
+      operationId: auth_token_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/auth/token/verify/:
+    post:
+      operationId: auth_token_verify_create
+      description: |-
+        Takes a token and indicates if it is valid.  This view provides no
+        information about a token's fitness for a particular use.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenVerify'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenVerify'
+          description: ''
+  /api/auth/user/:
+    get:
+      operationId: auth_user_retrieve
+      description: |-
+        POST with "auth_token"
+        Send an idtoken as from google to get user information
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SafeUser'
+          description: ''
+  /api/categories:
+    get:
+      operationId: categories_list
+      description: List all Categories.
+      tags:
+      - categories
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+          description: ''
+  /api/categories/trending:
+    get:
+      operationId: categories_trending_list
+      description: API view that returns the top 10 categories by API count.
+      tags:
+      - categories
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoryCount'
+          description: ''
+  /api/category/{category_name}:
+    get:
+      operationId: category_list
+      description: API view that returns the APIs based on the category.
+      parameters:
+      - in: path
+        name: category_name
+        schema:
+          type: string
+        required: true
+      tags:
+      - category
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/API'
+          description: ''
+  /api/count:
+    get:
+      operationId: count_retrieve
+      description: |-
+        Handle GET request and return the count of API objects.
+
+        Returns:
+            Response: Response object containing the count of API objects.
+      tags:
+      - count
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/create:
+    post:
+      operationId: create_create
+      tags:
+      - create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APICreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/APICreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/APICreate'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APICreate'
+          description: ''
+  /api/detail/{id}:
+    get:
+      operationId: detail_retrieve
+      description: Retrieve details of a single API.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - detail
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/API'
+          description: ''
+  /api/interaction/feedback:
+    post:
+      operationId: interaction_feedback_create
+      description: View to handle user feedbacks
+      tags:
+      - interaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Feedback'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Feedback'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Feedback'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feedback'
+          description: ''
+  /api/interaction/like/{api_id}:
+    post:
+      operationId: interaction_like_create
+      description: API View to handle liking an API.
+      parameters:
+      - in: path
+        name: api_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - interaction
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: interaction_like_destroy
+      description: API View to handle liking an API.
+      parameters:
+      - in: path
+        name: api_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - interaction
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/my_api:
+    get:
+      operationId: my_api_retrieve
+      description: Retrieve the approved APIs of the logged user.
+      tags:
+      - my_api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/pending/my_api:
+    get:
+      operationId: pending_my_api_retrieve
+      description: Retrieve the pending APIs of the logged user.
+      tags:
+      - pending
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/random:
+    get:
+      operationId: random_list
+      description: API view that returns 9 random APIs.
+      tags:
+      - random
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/API'
+          description: ''
+  /api/search:
+    get:
+      operationId: search_list
+      description: API view for searching APIs by name and description.
+      tags:
+      - search
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/API'
+          description: ''
+components:
+  schemas:
+    API:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        auth:
+          oneOf:
+          - $ref: '#/components/schemas/AuthEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        category:
+          type: string
+        cors:
+          type: boolean
+        description:
+          type: string
+        https:
+          type: boolean
+        url:
+          type: string
+          format: uri
+          maxLength: 200
+        likes_count:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        liked_by_user:
+          type: string
+          readOnly: true
+      required:
+      - auth
+      - category
+      - cors
+      - description
+      - https
+      - id
+      - liked_by_user
+      - name
+      - url
+    APICreate:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 100
+        auth:
+          oneOf:
+          - $ref: '#/components/schemas/AuthEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        category:
+          type: integer
+        cors:
+          type: boolean
+        description:
+          type: string
+        https:
+          type: boolean
+        url:
+          type: string
+          format: uri
+          maxLength: 200
+      required:
+      - auth
+      - category
+      - cors
+      - description
+      - https
+      - name
+      - url
+    AuthEnum:
+      enum:
+      - apiKey
+      - OAuth
+      type: string
+      description: |-
+        * `apiKey` - apiKey
+        * `OAuth` - OAuth
+        * `` - None
+    BlankEnum:
+      enum:
+      - ''
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+      required:
+      - id
+      - name
+    CategoryCount:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 100
+        api_count:
+          type: integer
+      required:
+      - api_count
+      - name
+    Feedback:
+      type: object
+      properties:
+        name:
+          type: string
+          nullable: true
+          maxLength: 30
+        email:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
+        message:
+          type: string
+          maxLength: 150
+      required:
+      - message
+    GoogleSocialAuth:
+      type: object
+      properties:
+        auth_token:
+          type: string
+      required:
+      - auth_token
+    SafeUser:
+      type: object
+      description: A safe Serializer of the default django auth user model
+      properties:
+        username:
+          type: string
+          description: Required. 150 characters or fewer. Letters, digits and @/./+/-/_
+            only.
+          pattern: ^[\w.@+-]+$
+          maxLength: 150
+        email:
+          type: string
+          format: email
+          title: Email address
+          maxLength: 254
+        picture:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+      required:
+      - username
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+    TokenVerify:
+      type: object
+      properties:
+        token:
+          type: string
+          writeOnly: true
+      required:
+      - token
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

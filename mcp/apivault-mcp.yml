@@ -1,0 +1,101 @@
+generated: '2026-09-04'
+method: derived
+status: candidate
+source: >-
+  Derived from openapi/_original/apivault-openapi.yml. SEARCH ran first and
+  missed: registry.modelcontextprotocol.io returned zero servers for
+  "apivault" (2026-09-04); mcp.apivault.dev does not resolve (NXDOMAIN);
+  POST tools/list to https://api.apivault.dev/mcp returned 404 (nginx) and to
+  https://apivault.dev/mcp returned 404 (Nuxt); npm carries no ApiVault MCP
+  package from Exastudio; and the provider's docs and repository never mention
+  MCP.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: probed
+  note: >-
+    ApiVault ships NO MCP server — neither a remote endpoint nor a local stdio
+    package. `mode: none` is the measured result, not a placeholder. The tools
+    below are a CANDIDATE surface API Evangelist derived from the provider's
+    own OpenAPI so the shape of a future server is on record; nobody can call
+    them today. No endpoint URL has been invented.
+server:
+  name: apivault
+  transport: null
+  url: null
+candidate_basis:
+  openapi: openapi/_original/apivault-openapi.yml
+  operations_total: 18
+  anonymous_operations: 9
+  note: >-
+    The six read operations below need no credential and were each confirmed
+    to answer 200 anonymously on 2026-09-04, so they would make a genuinely
+    agent-callable server. The write and account operations need a SimpleJWT
+    that can only be minted through an interactive Google sign-in
+    (authentication/apivault-authentication.yml), which is why they are
+    marked auth_required and would gate any real deployment.
+tools:
+  - name: list_apis
+    description: List every public API in the ApiVault catalogue (1,454 records, unpaginated).
+    auth_required: false
+    source_operation: openapi/_original/apivault-openapi.yml#all_list
+  - name: search_apis
+    description: >-
+      Free-text search across the catalogue. NOTE the `query` parameter is
+      absent from the published spec; it is observed in the provider's own
+      client. See conventions/apivault-conventions.yml.
+    auth_required: false
+    source_operation: openapi/_original/apivault-openapi.yml#search_list
+  - name: list_categories
+    description: List the 51 directory categories.
+    auth_required: false
+    source_operation: openapi/_original/apivault-openapi.yml#categories_list
+  - name: list_trending_categories
+    description: List categories ranked by activity, with an api_count per category.
+    auth_required: false
+    source_operation: openapi/_original/apivault-openapi.yml#categories_trending_list
+  - name: list_apis_by_category
+    description: List the APIs in one category by category name.
+    auth_required: false
+    source_operation: openapi/_original/apivault-openapi.yml#category_list
+  - name: count_apis
+    description: Return the total number of catalogued APIs.
+    auth_required: false
+    source_operation: openapi/_original/apivault-openapi.yml#count_retrieve
+  - name: get_random_apis
+    description: Return a random selection of catalogued APIs.
+    auth_required: false
+    source_operation: openapi/_original/apivault-openapi.yml#random_list
+  - name: get_api
+    description: Retrieve one catalogued API by its integer id.
+    auth_required: false
+    source_operation: openapi/_original/apivault-openapi.yml#detail_retrieve
+  - name: submit_api
+    description: >-
+      Submit a new API to the directory for moderation. IRREVERSIBLE from the
+      caller's side — there is no withdraw operation.
+    auth_required: true
+    source_operation: openapi/_original/apivault-openapi.yml#create_create
+  - name: like_api
+    description: Like a catalogued API. Reversible via unlike_api.
+    auth_required: true
+    source_operation: openapi/_original/apivault-openapi.yml#interaction_like_create
+  - name: unlike_api
+    description: Remove a like. The reversal of like_api.
+    auth_required: true
+    source_operation: openapi/_original/apivault-openapi.yml#interaction_like_destroy
+  - name: send_feedback
+    description: Send a message to the ApiVault team. No retract operation.
+    auth_required: true
+    source_operation: openapi/_original/apivault-openapi.yml#interaction_feedback_create
+  - name: list_my_apis
+    description: List the APIs the signed-in user submitted.
+    auth_required: true
+    source_operation: openapi/_original/apivault-openapi.yml#my_api_retrieve
+  - name: list_my_pending_apis
+    description: List the signed-in user's submissions still awaiting moderation.
+    auth_required: true
+    source_operation: openapi/_original/apivault-openapi.yml#pending_my_api_retrieve

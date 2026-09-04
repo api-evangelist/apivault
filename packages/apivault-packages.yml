@@ -1,0 +1,62 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  registry.npmjs.org search + PyPI JSON API, plus the provider's own repository
+  (https://github.com/exa-studio/ApiVault) and site (https://apivault.dev/),
+  searched 2026-09-04.
+package_count: 0
+official_package_count: 0
+packages: []
+note: >-
+  ApiVault publishes NO first-party client library in any registry. The project
+  ships a Nuxt frontend and a Django backend meant to be run with
+  docker-compose from source; the README's only install path is
+  `git clone` + `docker-compose up`. There is no SDK, and no `SDKs` pointer is
+  emitted.
+name_collisions_rejected:
+  note: >-
+    The npm name space around "apivault" is crowded with packages from THREE
+    unrelated companies. None is published by Exastudio/Exifly and none targets
+    api.apivault.dev, so none was recorded. Kept here so a later round does not
+    re-adopt them.
+  packages:
+    - name: apivault
+      registry: npm
+      version: 0.1.3
+      published: '2026-08-21'
+      repository: https://github.com/TLB-STATION/apivault
+      rejected_because: >-
+        "Command-line client for an ApiVault instance. Manage your encrypted
+        API keys" — a secrets vault from TLB-STATION, not this API directory.
+    - name: apivault-js
+      registry: npm
+      version: 1.0.3
+      published: '2026-05-12'
+      repository: https://github.com/jEmeralds/apivault-js
+      rejected_because: >-
+        "Official JavaScript SDK for APIvault — one key for every API" from
+        jEmeralds; a different product with a different owner.
+    - name: n8n-nodes-apivault-*
+      registry: npm
+      version: null
+      published: null
+      repository: https://github.com/apivault-labs
+      rejected_because: >-
+        Fifteen-plus n8n community nodes from "Apivault Labs" (Shopify finder,
+        LinkedIn scraper, Yelp, Zillow, WhatsApp validator, …), all backed by
+        Apify actors. A scraping-data vendor, unrelated to apivault.dev.
+    - name: api-vault
+      registry: pypi
+      version: 0.1.2
+      published: null
+      repository: null
+      rejected_because: '"A simple CLI password/secret vault" — unrelated.'
+registries_checked:
+  - {registry: npm, result: no first-party package}
+  - {registry: pypi, result: no first-party package}
+  - {registry: rubygems, result: not applicable — no Ruby surface}
+  - {registry: packagist, result: not applicable — no PHP surface}
+  - {registry: crates.io, result: not applicable — no Rust surface}
+  - {registry: nuget, result: not applicable — no .NET surface}
+  - {registry: maven-central, result: not applicable — no JVM surface}
+  - {registry: pkg.go.dev, result: not applicable — no Go surface}

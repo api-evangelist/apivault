@@ -1,0 +1,73 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  openapi/_original/apivault-openapi.yml (harvested from
+  https://api.apivault.dev/api/schema/) upgraded from the provider's own source
+  (backend/authentication/urls.py, backend/apivault/settings.py and
+  frontend/services/ApivaultServices.ts in
+  https://github.com/exa-studio/ApiVault) and from live 401/406 probes of
+  https://api.apivault.dev on 2026-09-04.
+docs: https://api.apivault.dev/api/schema/swagger-ui/
+summary:
+  types: [http]
+  http_schemes: [bearer]
+  bearer_format: JWT
+  api_key_in: []
+  oauth2_flows: []
+  anonymous_access: true
+  human_identity_required: true
+schemes:
+  - name: jwtAuth
+    type: http
+    scheme: bearer
+    bearerFormat: JWT
+    sources: [openapi/_original/apivault-openapi.yml]
+    description: >-
+      SimpleJWT bearer token, sent as `Authorization: Bearer <jwt>`.
+token_acquisition:
+  method: google-sign-in-exchange
+  note: >-
+    There is NO API key, no client-credentials grant and no self-service
+    developer key. The only way to obtain a token is to sign in to
+    apivault.dev with a Google account in a browser and exchange the resulting
+    Google token: POST /api/auth/google/ (operationId auth_google_create) with
+    an `auth_token` body field returns the SimpleJWT access/refresh pair.
+    This is the single largest agent-readiness constraint on this API — an
+    unattended agent cannot mint credentials.
+  operations:
+    - {operationId: auth_google_create, path: /api/auth/google/, method: POST}
+    - {operationId: auth_token_refresh_create, path: /api/auth/token/refresh/, method: POST}
+    - {operationId: auth_token_verify_create, path: /api/auth/token/verify/, method: POST}
+    - {operationId: auth_user_retrieve, path: /api/auth/user/, method: GET}
+anonymous_surface:
+  note: >-
+    Nine of the eighteen operations declare `security: [{jwtAuth: []}, {}]`,
+    the OpenAPI form for "token optional". All nine were confirmed to answer
+    200 with no credentials on 2026-09-04.
+  verified_anonymous:
+    - {operationId: all_list, path: /api/all, status: 200}
+    - {operationId: categories_list, path: /api/categories, status: 200}
+    - {operationId: categories_trending_list, path: /api/categories/trending, status: 200}
+    - {operationId: count_retrieve, path: /api/count, status: 200}
+    - {operationId: random_list, path: /api/random, status: 200}
+    - {operationId: search_list, path: /api/search, status: 200}
+authenticated_only:
+  - {operationId: auth_user_retrieve, observed_status_without_token: 401}
+  - {operationId: my_api_retrieve, observed_status_without_token: 401}
+  - {operationId: pending_my_api_retrieve, observed_status_without_token: 401}
+  - {operationId: create_create, observed_status_without_token: 401}
+  - {operationId: interaction_like_create, observed_status_without_token: 401}
+  - {operationId: interaction_like_destroy, observed_status_without_token: 401}
+  - {operationId: interaction_feedback_create, observed_status_without_token: 401}
+challenge:
+  status: 401
+  body: '{"detail": "Authentication credentials were not provided."}'
+  www_authenticate: not sent
+  note: >-
+    The 401 carries no WWW-Authenticate header, so a client cannot discover the
+    scheme from the challenge — it has to read the spec.
+scopes: none
+gaps:
+  - No WWW-Authenticate challenge header on 401.
+  - No token lifetime, rotation or revocation policy is published.
+  - No machine-to-machine credential of any kind; Google sign-in is mandatory.

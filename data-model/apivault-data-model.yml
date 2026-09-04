@@ -1,0 +1,134 @@
+generated: '2026-09-04'
+method: derived
+source: >-
+  openapi/_original/apivault-openapi.yml components.schemas, cross-checked
+  against the Django models in backend/vault/models.py,
+  backend/interaction/models.py and backend/authentication/models.py at
+  https://github.com/exa-studio/ApiVault.
+note: >-
+  A small, flat model. There are no id-prefixes and no nested resources; every
+  identifier is a plain auto-increment Django integer primary key. Only two
+  relationships exist in the public contract, and one of them is
+  representation-dependent (see the Category note).
+entities:
+  - name: API
+    schema: '#/components/schemas/API'
+    description: >-
+      One catalogued public API — the core record of the directory. 1,454 of
+      them as of 2026-09-04 (GET /api/count).
+    identifier: {field: id, type: integer, prefix: null, read_only: true}
+    fields:
+      - {name: id, type: integer, required: true, read_only: true}
+      - {name: name, type: string, required: true, max_length: 100}
+      - {name: auth, type: enum, required: true, values: [apiKey, OAuth, ''], note: 'The empty string means no auth'}
+      - {name: category, type: string, required: true, note: 'Category NAME on read; see relationships'}
+      - {name: cors, type: boolean, required: true}
+      - {name: description, type: string, required: true}
+      - {name: https, type: boolean, required: true}
+      - {name: url, type: uri, required: true, max_length: 200}
+      - {name: likes_count, type: integer, required: false, minimum: 0}
+      - {name: liked_by_user, type: string, required: true, read_only: true, note: 'Whether the calling authenticated user has liked this API'}
+    returned_by: [all_list, search_list, random_list, category_list, detail_retrieve, my_api_retrieve, pending_my_api_retrieve]
+  - name: APICreate
+    schema: '#/components/schemas/APICreate'
+    description: >-
+      The write projection of API used on submission. Deliberately NOT the same
+      shape as API: `category` is the integer Category id here and the category
+      NAME on read, and the read-only/derived fields (id, likes_count,
+      liked_by_user) are absent.
+    written_by: [create_create]
+  - name: Category
+    schema: '#/components/schemas/Category'
+    description: A directory category. 51 of them.
+    identifier: {field: id, type: integer, prefix: null, read_only: true}
+    fields:
+      - {name: id, type: integer, required: true, read_only: true}
+      - {name: name, type: string, required: true, max_length: 100}
+    returned_by: [categories_list]
+  - name: CategoryCount
+    schema: '#/components/schemas/CategoryCount'
+    description: >-
+      A projection of Category carrying a rolled-up api_count, used only by the
+      trending view. Not a separate stored entity.
+    returned_by: [categories_trending_list]
+  - name: Feedback
+    schema: '#/components/schemas/Feedback'
+    description: A free-text message from a signed-in user to the ApiVault team.
+    fields:
+      - {name: name, type: string, required: false, nullable: true, max_length: 30}
+      - {name: email, type: email, required: false, nullable: true, max_length: 254}
+      - {name: message, type: string, required: true, max_length: 150}
+    written_by: [interaction_feedback_create]
+  - name: SafeUser
+    schema: '#/components/schemas/SafeUser'
+    description: >-
+      The redacted projection of the Django auth user. Only username, email and
+      picture are exposed.
+    fields:
+      - {name: username, type: string, required: true, max_length: 150}
+      - {name: email, type: email, required: false, max_length: 254}
+      - {name: picture, type: uri, required: false, nullable: true}
+    returned_by: [auth_user_retrieve]
+  - name: Like
+    schema: null
+    description: >-
+      The user<->API like edge. It has NO schema in the published contract —
+      interaction_like_create and interaction_like_destroy both declare "No
+      response body" — but it is the join the `likes_count` and `liked_by_user`
+      fields on API are computed from.
+    inferred_from: backend/interaction/models.py
+    written_by: [interaction_like_create, interaction_like_destroy]
+  - name: GoogleSocialAuth
+    schema: '#/components/schemas/GoogleSocialAuth'
+    description: The Google token exchange request body. Transport, not a stored entity.
+  - name: TokenRefresh
+    schema: '#/components/schemas/TokenRefresh'
+    description: SimpleJWT refresh exchange. Transport, not a stored entity.
+  - name: TokenVerify
+    schema: '#/components/schemas/TokenVerify'
+    description: SimpleJWT verification request. Transport, not a stored entity.
+relationships:
+  - from: API
+    to: Category
+    kind: belongs_to
+    via: category
+    cardinality: many-to-one
+    note: >-
+      Representation-dependent. On READ (API schema) `category` is the category
+      NAME as a string; on WRITE (APICreate) it is the integer Category id.
+      A client cannot round-trip a record it just read without translating the
+      field through GET /api/categories.
+  - from: Category
+    to: API
+    kind: has_many
+    via: category
+    cardinality: one-to-many
+    traversed_by: category_list
+  - from: SafeUser
+    to: API
+    kind: has_many
+    via: Like
+    cardinality: many-to-many
+    note: >-
+      Expressed through the unschematised Like edge. Read back per-user via
+      my_api_retrieve, and per-record via the API.liked_by_user flag.
+  - from: SafeUser
+    to: API
+    kind: has_many
+    via: submitted_by
+    cardinality: one-to-many
+    note: >-
+      A submitted API belongs to its submitter; surfaced by my_api_retrieve and
+      pending_my_api_retrieve. The owning field is not exposed on the API
+      schema itself.
+gaps:
+  - >-
+    The Like edge has no schema and both of its operations return an empty
+    body, so a client cannot read a like back other than through the derived
+    counters on API.
+  - >-
+    `category` changes type between the read and write projections, which no
+    part of the published document flags.
+  - >-
+    No timestamps of any kind are exposed — no created_at, no updated_at — so a
+    consumer cannot tell how stale a catalogued entry is.

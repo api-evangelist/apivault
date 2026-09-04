@@ -1,0 +1,75 @@
+generated: '2026-09-04'
+method: searched
+source: https://github.com/exa-studio/ApiVault/releases.atom
+docs: https://github.com/exa-studio/ApiVault/releases
+scheme: semver-release-tags
+current_version: v2.2.4
+current_version_date: '2024-09-06'
+deployed_api_version: 2.1.0
+note: >-
+  ApiVault keeps no separate API changelog. The dated record is the GitHub
+  Releases feed for the open-source project, which covers the whole product
+  (frontend, backend and API together) rather than the HTTP contract alone.
+  Breaking-change flags below are our reading of the release notes, not a
+  provider classification — the project publishes no breaking-change policy.
+  Recent window only; the feed carries the full history.
+entries:
+  - version: v2.2.4
+    date: '2024-09-06'
+    url: https://github.com/exa-studio/ApiVault/releases/tag/v2.2.4
+    breaking: false
+    highlights:
+      - Replaced the ProductHunt badge with a badge for Codeishot, another Exastudio app.
+  - version: v2.2.1
+    date: '2023-09-13'
+    url: https://github.com/exa-studio/ApiVault/releases/tag/v2.2.1
+    breaking: false
+    highlights: [Hotfix release.]
+  - version: v2.2.0
+    date: '2023-09-12'
+    url: https://github.com/exa-studio/ApiVault/releases/tag/v2.2.0
+    breaking: false
+    highlights: [Main sync from release branch.]
+  - version: v2.1.0
+    date: '2023-07-05'
+    url: https://github.com/exa-studio/ApiVault/releases/tag/v2.1.0
+    breaking: false
+    additions:
+      - >-
+        User accounts on ApiVault — Google login/signup, and the ability to
+        submit and like an API. This is the release that introduced the
+        authenticated half of the API (auth_google_create, create_create,
+        interaction_like_create/destroy, my_api_retrieve).
+    note: >-
+      The deployed OpenAPI still reports info.version 2.1.0, so this is the
+      last release that moved the published contract version.
+  - version: v2.0.5
+    date: '2023-06-05'
+    url: https://github.com/exa-studio/ApiVault/releases/tag/v2.0.5
+    breaking: false
+    highlights: [Hotfix.]
+  - version: v2.0.4
+    date: '2023-06-05'
+    url: https://github.com/exa-studio/ApiVault/releases/tag/v2.0.4
+    breaking: false
+    additions: [Added the cookie policy and privacy policy pages.]
+  - version: v2.0.1
+    date: '2023-06-01'
+    url: https://github.com/exa-studio/ApiVault/releases/tag/v2.0.1
+    breaking: false
+    highlights: [Hotfix — useLazyFetch for GitHub data on CSR.]
+  - version: v2.0.0
+    date: '2023-06-01'
+    url: https://github.com/exa-studio/ApiVault/releases/tag/v2.0.0
+    breaking: true
+    highlights: [Major 2.x release of the site.]
+  - version: v1.4.0
+    date: '2023-05-13'
+    url: https://github.com/exa-studio/ApiVault/releases/tag/v1.4.0
+    breaking: false
+    additions: [New card design.]
+  - version: v1.3.14
+    date: '2023-05-08'
+    url: https://github.com/exa-studio/ApiVault/releases/tag/v1.3.14
+    breaking: false
+    additions: [sitemap.xml generator on the backend and in production.]

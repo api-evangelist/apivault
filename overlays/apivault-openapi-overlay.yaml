@@ -1,0 +1,90 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for ApiVault
+  version: 1.0.0
+extends: openapi/_original/apivault-openapi.yml
+x-provenance:
+  generated: '2026-09-04'
+  method: generated
+  source: >-
+    Derived from openapi/_original/apivault-openapi.yml (harvested verbatim from
+    https://api.apivault.dev/api/schema/ on 2026-09-04) plus live probes of
+    https://api.apivault.dev recorded in errors/, conventions/ and rate-limits/.
+  note: >-
+    These actions capture API Evangelist's enhancements only. The provider's
+    document is never mutated. Applying this overlay to the harvested spec
+    reproduces openapi/apivault-api-openapi.yml plus the annotations below.
+actions:
+  - target: $.info
+    description: Record the origin, licence and the rating annotation.
+    update:
+      contact:
+        name: ApiVault (Exastudio)
+        url: https://apivault.dev/
+      license:
+        name: CC BY-NC-ND 4.0
+        url: https://github.com/exa-studio/ApiVault/blob/main/LICENSE
+      x-apievangelist-source: https://api.apivault.dev/api/schema/
+      x-apievangelist-harvested: '2026-09-04'
+      x-apievangelist-version-drift: >-
+        info.version is 2.1.0 while the provider's newest GitHub release is
+        v2.2.4 (2024-09-06). The deployed schema version has not been bumped
+        since the v2.1.0 release (2023-07-05).
+  - target: $
+    description: >-
+      Add the production host. The provider's drf-spectacular output ships no
+      servers[] block, so the spec is not directly callable as published.
+    update:
+      servers:
+        - url: https://api.apivault.dev
+          description: Production (observed live 2026-09-04)
+  - target: $.components.securitySchemes.jwtAuth
+    description: Name where the JWT is obtained, which the spec does not state.
+    update:
+      description: >-
+        Bearer JWT (SimpleJWT). Tokens are minted by POST /api/auth/google/
+        with a Google sign-in token, refreshed at /api/auth/token/refresh/ and
+        checked at /api/auth/token/verify/. There is no API-key or
+        client-credentials path; every authenticated call is on behalf of a
+        signed-in human Google account.
+  - target: $.paths['/api/search'].get
+    description: >-
+      Record the query parameter the provider's own frontend sends but the
+      spec omits (frontend/services/ApivaultServices.ts, search()).
+    update:
+      x-apievangelist-undocumented-parameters:
+        - name: query
+          in: query
+          required: false
+          schema:
+            type: string
+          description: >-
+            Free-text search over the catalogued API names/descriptions. Absent
+            from the published spec; observed in the provider's own client.
+  - target: $.paths['/api/category/{category_name}'].get
+    description: Record the ordering parameter the provider's frontend sends.
+    update:
+      x-apievangelist-undocumented-parameters:
+        - name: order
+          in: query
+          required: false
+          schema:
+            type: string
+          description: >-
+            Sort order passed by the provider's frontend
+            (apiCategoryData(category, authToken, orderBy)). Absent from the
+            published spec.
+      x-apievangelist-observed-failure: >-
+        GET /api/category/NotARealCategory returned HTTP 500 with an HTML
+        Django "Server Error (500)" body on 2026-09-04 — an unknown category
+        is not handled as a 404.
+  - target: $.paths..responses
+    description: >-
+      Note that no 4xx/5xx responses are declared anywhere in the document,
+      although the API returns them. See errors/apivault-problem-types.yml for
+      the observed envelope.
+    update:
+      x-apievangelist-note: >-
+        The published document declares only 200/201/204. Every error shape in
+        errors/apivault-problem-types.yml was observed live, not read from the
+        spec.
