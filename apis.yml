@@ -41,8 +41,8 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/apivault.png
 access: 3rd-Party
 created: '2025-03-01'
-modified: '2026-04-19'
-position: Consumer
+modified: '2026-09-04'
+position: Consuming
 description: >-
   Apivault is an open-source directory and gateway for discovering public APIs.
   The platform catalogs thousands of free and public APIs across 51 categories
@@ -65,11 +65,27 @@ apis:
       - Open Source
       - Public APIs
     humanURL: https://apivault.dev/
+    baseURL: https://api.apivault.dev
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/apivault.png
     properties:
       - url: https://apivault.dev/
         type: Documentation
-      - url: https://github.com/Exifly/ApiVault
+      - url: https://github.com/exa-studio/ApiVault
         type: GitHubRepository
+      - url: openapi/apivault-api-openapi.yml
+        type: OpenAPI
+        name: ApiVault OpenAPI 3.0.3 (working copy, servers[] added)
+      - url: openapi/_original/apivault-openapi.yml
+        type: OpenAPI Source
+        name: ApiVault OpenAPI, verbatim harvest from api.apivault.dev/api/schema/
+      - url: https://api.apivault.dev/api/schema/
+        type: APIReference
+        name: Live OpenAPI schema
+      - url: https://api.apivault.dev/api/schema/swagger-ui/
+        type: Documentation
+        name: Swagger UI
+      - url: overlays/apivault-openapi-overlay.yaml
+        type: Overlay
     description: >-
       Apivault is a free, open-source API directory that serves as a gateway to
       a world of public APIs. It catalogs APIs across 51 categories with details
@@ -77,10 +93,14 @@ apis:
       can search, discover, submit, and browse APIs across all major domains.
       Licensed under CC BY-NC-ND 4.0.
 common:
+  - type: AgenticAccess
+    url: agentic-access/apivault-agentic-access.yml
+  - type: Authentication
+    url: authentication/apivault-authentication.yml
   - type: IssueTracker
-    url: https://github.com/Exifly/ApiVault/issues
+    url: https://github.com/exa-studio/ApiVault/issues
   - type: Releases
-    url: https://github.com/Exifly/ApiVault/releases
+    url: https://github.com/exa-studio/ApiVault/releases
   - type: CodeOfConduct
     url: https://github.com/exa-studio/ApiVault/blob/main/CODE_OF_CONDUCT.md
   - type: ContributionGuide
@@ -88,7 +108,7 @@ common:
   - type: DomainSecurity
     url: security/apivault-domain-security.yml
   - type: GitHubRepository
-    url: https://github.com/Exifly/ApiVault
+    url: https://github.com/exa-studio/ApiVault
   - type: Features
     data:
       - name: API Directory
@@ -111,7 +131,46 @@ common:
         description: Submit and promote your own API to a community of developers.
       - name: Rapid Prototyping
         description: Quickly discover APIs to accelerate prototype and proof-of-concept development.
+  - type: GitHubOrganization
+    url: https://github.com/exa-studio
+  - type: APIReference
+    url: https://api.apivault.dev/api/schema/swagger-ui/
+  - type: Support
+    url: https://github.com/exa-studio/ApiVault/issues
+  - type: PrivacyPolicy
+    url: https://apivault.dev/privacy-policy
+  - type: License
+    url: https://github.com/exa-studio/ApiVault/blob/main/LICENSE
+  - type: Conventions
+    url: conventions/apivault-conventions.yml
+  - type: ErrorCatalog
+    url: errors/apivault-problem-types.yml
+  - type: DataModel
+    url: data-model/apivault-data-model.yml
+  - type: Lifecycle
+    url: lifecycle/apivault-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/apivault-changelog.yml
+  - type: Conformance
+    url: conformance/apivault-conformance.yml
+  - type: Packages
+    url: packages/apivault-packages.yml
+  - type: LLMsTxt
+    url: llms/apivault-llms.txt
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: Plans
+    url: plans/apivault-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/apivault-rate-limits.yml
+  - type: FinOps
+    url: finops/apivault-finops.yml
 maintainers:
   - FN: Kin Lane
     email: info@apievangelist.com
 specificationVersion: '0.23'
+x-enrichment:
+  date: '2026-09-04'
+  status: enriched
+  artifacts_added: 19
+  pass: local-v3
