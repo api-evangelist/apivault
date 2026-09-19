@@ -56,6 +56,8 @@ apis:
   humanURL: https://apivault.dev/
   baseURL: https://api.apivault.dev
   tags:
+  - All
+  tags_raw:
   - all
   properties:
   - type: OpenAPI
@@ -76,6 +78,8 @@ apis:
   humanURL: https://apivault.dev/
   baseURL: https://api.apivault.dev
   tags:
+  - Authentication
+  tags_raw:
   - auth
   properties:
   - type: OpenAPI
@@ -96,6 +100,8 @@ apis:
   humanURL: https://apivault.dev/
   baseURL: https://api.apivault.dev
   tags:
+  - Categories
+  tags_raw:
   - categories
   properties:
   - type: OpenAPI
@@ -116,6 +122,8 @@ apis:
   humanURL: https://apivault.dev/
   baseURL: https://api.apivault.dev
   tags:
+  - Category
+  tags_raw:
   - category
   properties:
   - type: OpenAPI
@@ -136,6 +144,8 @@ apis:
   humanURL: https://apivault.dev/
   baseURL: https://api.apivault.dev
   tags:
+  - Count
+  tags_raw:
   - count
   properties:
   - type: OpenAPI
@@ -155,7 +165,8 @@ apis:
   description: The create API from Apivault — 1 operation(s) for create.
   humanURL: https://apivault.dev/
   baseURL: https://api.apivault.dev
-  tags:
+  tags: []
+  tags_raw:
   - create
   properties:
   - type: OpenAPI
@@ -176,6 +187,8 @@ apis:
   humanURL: https://apivault.dev/
   baseURL: https://api.apivault.dev
   tags:
+  - Detail
+  tags_raw:
   - detail
   properties:
   - type: OpenAPI
@@ -196,6 +209,8 @@ apis:
   humanURL: https://apivault.dev/
   baseURL: https://api.apivault.dev
   tags:
+  - Interaction
+  tags_raw:
   - interaction
   properties:
   - type: OpenAPI
@@ -215,7 +230,8 @@ apis:
   description: The my_api API from Apivault — 1 operation(s) for my_api.
   humanURL: https://apivault.dev/
   baseURL: https://api.apivault.dev
-  tags:
+  tags: []
+  tags_raw:
   - my_api
   properties:
   - type: OpenAPI
@@ -236,6 +252,8 @@ apis:
   humanURL: https://apivault.dev/
   baseURL: https://api.apivault.dev
   tags:
+  - Pending
+  tags_raw:
   - pending
   properties:
   - type: OpenAPI
@@ -256,6 +274,8 @@ apis:
   humanURL: https://apivault.dev/
   baseURL: https://api.apivault.dev
   tags:
+  - Random
+  tags_raw:
   - random
   properties:
   - type: OpenAPI
@@ -276,6 +296,8 @@ apis:
   humanURL: https://apivault.dev/
   baseURL: https://api.apivault.dev
   tags:
+  - Search
+  tags_raw:
   - search
   properties:
   - type: OpenAPI
