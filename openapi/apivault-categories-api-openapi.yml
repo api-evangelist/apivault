@@ -1,0 +1,78 @@
+openapi: 3.2.0
+info:
+  title: ApiVault Categories API
+  version: 2.1.0
+  description: Your gateway to a world of public APIs
+tags:
+- name: Categories
+paths:
+  /api/categories:
+    get:
+      operationId: categories_list
+      description: List all Categories.
+      tags:
+      - Categories
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Category'
+          description: ''
+      summary: Categories list
+      x-summary-source: derived
+  /api/categories/trending:
+    get:
+      operationId: categories_trending_list
+      description: API view that returns the top 10 categories by API count.
+      tags:
+      - Categories
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CategoryCount'
+          description: ''
+      summary: Categories trending list
+      x-summary-source: derived
+components:
+  schemas:
+    Category:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+      required:
+      - id
+      - name
+    CategoryCount:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 100
+        api_count:
+          type: integer
+      required:
+      - api_count
+      - name
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

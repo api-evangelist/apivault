@@ -1,0 +1,27 @@
+openapi: 3.2.0
+info:
+  title: ApiVault My API
+  version: 2.1.0
+  description: Your gateway to a world of public APIs
+tags:
+- name: my_api
+paths:
+  /api/my_api:
+    get:
+      operationId: my_api_retrieve
+      description: Retrieve the approved APIs of the logged user.
+      tags:
+      - my_api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+      summary: My api retrieve
+      x-summary-source: derived
+components:
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,100 @@
+openapi: 3.2.0
+info:
+  title: ApiVault Interaction API
+  version: 2.1.0
+  description: Your gateway to a world of public APIs
+tags:
+- name: Interaction
+paths:
+  /api/interaction/feedback:
+    post:
+      operationId: interaction_feedback_create
+      description: View to handle user feedbacks
+      tags:
+      - Interaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Feedback'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Feedback'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Feedback'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Feedback'
+          description: ''
+      summary: Interaction feedback create
+      x-summary-source: derived
+  /api/interaction/like/{api_id}:
+    post:
+      operationId: interaction_like_create
+      description: API View to handle liking an API.
+      parameters:
+      - in: path
+        name: api_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Interaction
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+      summary: Interaction like create
+      x-summary-source: derived
+    delete:
+      operationId: interaction_like_destroy
+      description: API View to handle liking an API.
+      parameters:
+      - in: path
+        name: api_id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Interaction
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+      summary: Interaction like destroy
+      x-summary-source: derived
+components:
+  schemas:
+    Feedback:
+      type: object
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          maxLength: 30
+        email:
+          type:
+          - string
+          - 'null'
+          format: email
+          maxLength: 254
+        message:
+          type: string
+          maxLength: 150
+      required:
+      - message
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

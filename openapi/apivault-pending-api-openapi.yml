@@ -1,0 +1,27 @@
+openapi: 3.2.0
+info:
+  title: ApiVault Pending API
+  version: 2.1.0
+  description: Your gateway to a world of public APIs
+tags:
+- name: pending
+paths:
+  /api/pending/my_api:
+    get:
+      operationId: pending_my_api_retrieve
+      description: Retrieve the pending APIs of the logged user.
+      tags:
+      - pending
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+      summary: Pending my api retrieve
+      x-summary-source: derived
+components:
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

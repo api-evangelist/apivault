@@ -1,0 +1,86 @@
+openapi: 3.2.0
+info:
+  title: ApiVault Create API
+  version: 2.1.0
+  description: Your gateway to a world of public APIs
+tags:
+- name: Create
+paths:
+  /api/create:
+    post:
+      operationId: create_create
+      tags:
+      - Create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APICreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/APICreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/APICreate'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APICreate'
+          description: ''
+      summary: Create create
+      x-summary-source: derived
+components:
+  schemas:
+    BlankEnum:
+      enum:
+      - ''
+    APICreate:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 100
+        auth:
+          oneOf:
+          - $ref: '#/components/schemas/AuthEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        category:
+          type: integer
+        cors:
+          type: boolean
+        description:
+          type: string
+        https:
+          type: boolean
+        url:
+          type: string
+          format: uri
+          maxLength: 200
+      required:
+      - auth
+      - category
+      - cors
+      - description
+      - https
+      - name
+      - url
+    AuthEnum:
+      enum:
+      - apiKey
+      - OAuth
+      type: string
+      description: '* `apiKey` - apiKey
+
+        * `OAuth` - OAuth
+
+        * `` - None'
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

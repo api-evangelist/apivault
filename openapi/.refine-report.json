@@ -1,0 +1,54 @@
+{
+  "provider": "apivault",
+  "sources": [
+    "_original/apivault-openapi.yml"
+  ],
+  "outputs": [
+    "apivault-all-api-openapi.yml",
+    "apivault-auth-api-openapi.yml",
+    "apivault-categories-api-openapi.yml",
+    "apivault-category-api-openapi.yml",
+    "apivault-count-api-openapi.yml",
+    "apivault-create-api-openapi.yml",
+    "apivault-detail-api-openapi.yml",
+    "apivault-interaction-api-openapi.yml",
+    "apivault-my-api-api-openapi.yml",
+    "apivault-pending-api-openapi.yml",
+    "apivault-random-api-openapi.yml",
+    "apivault-search-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "apivault-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apivault-openapi.yml: declared missing tag: all",
+    "apivault-openapi.yml: declared missing tag: auth",
+    "apivault-openapi.yml: declared missing tag: categories",
+    "apivault-openapi.yml: declared missing tag: category",
+    "apivault-openapi.yml: declared missing tag: count",
+    "apivault-openapi.yml: declared missing tag: create",
+    "apivault-openapi.yml: declared missing tag: detail",
+    "apivault-openapi.yml: declared missing tag: interaction",
+    "apivault-openapi.yml: declared missing tag: my_api",
+    "apivault-openapi.yml: declared missing tag: pending",
+    "apivault-openapi.yml: declared missing tag: random",
+    "apivault-openapi.yml: declared missing tag: search",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "apivault-all-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "apivault-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "apivault-categories-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "apivault-category-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "apivault-count-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "apivault-create-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "apivault-detail-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "apivault-interaction-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "apivault-my-api-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "apivault-pending-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "apivault-random-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "apivault-search-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

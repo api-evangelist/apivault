@@ -1,0 +1,33 @@
+openapi: 3.2.0
+info:
+  title: ApiVault Count API
+  version: 2.1.0
+  description: Your gateway to a world of public APIs
+tags:
+- name: Count
+paths:
+  /api/count:
+    get:
+      operationId: count_retrieve
+      description: 'Handle GET request and return the count of API objects.
+
+
+        Returns:
+
+        Response: Response object containing the count of API objects.'
+      tags:
+      - Count
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+      summary: Count retrieve
+      x-summary-source: derived
+components:
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

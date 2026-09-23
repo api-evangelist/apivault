@@ -1,0 +1,90 @@
+openapi: 3.2.0
+info:
+  title: ApiVault Search API
+  version: 2.1.0
+  description: Your gateway to a world of public APIs
+tags:
+- name: Search
+paths:
+  /api/search:
+    get:
+      operationId: search_list
+      description: API view for searching APIs by name and description.
+      tags:
+      - Search
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/API'
+          description: ''
+      summary: Search list
+      x-summary-source: derived
+components:
+  schemas:
+    API:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 100
+        auth:
+          oneOf:
+          - $ref: '#/components/schemas/AuthEnum'
+          - $ref: '#/components/schemas/BlankEnum'
+        category:
+          type: string
+        cors:
+          type: boolean
+        description:
+          type: string
+        https:
+          type: boolean
+        url:
+          type: string
+          format: uri
+          maxLength: 200
+        likes_count:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        liked_by_user:
+          type: string
+          readOnly: true
+      required:
+      - auth
+      - category
+      - cors
+      - description
+      - https
+      - id
+      - liked_by_user
+      - name
+      - url
+    BlankEnum:
+      enum:
+      - ''
+    AuthEnum:
+      enum:
+      - apiKey
+      - OAuth
+      type: string
+      description: '* `apiKey` - apiKey
+
+        * `OAuth` - OAuth
+
+        * `` - None'
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
