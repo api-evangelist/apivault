@@ -39,6 +39,16 @@ components:
     BlankEnum:
       enum:
       - ''
+    AuthEnum:
+      enum:
+      - apiKey
+      - OAuth
+      type: string
+      description: '* `apiKey` - apiKey
+
+        * `OAuth` - OAuth
+
+        * `` - None'
     APICreate:
       type: object
       properties:
@@ -69,16 +79,6 @@ components:
       - https
       - name
       - url
-    AuthEnum:
-      enum:
-      - apiKey
-      - OAuth
-      type: string
-      description: '* `apiKey` - apiKey
-
-        * `OAuth` - OAuth
-
-        * `` - None'
   securitySchemes:
     jwtAuth:
       type: http

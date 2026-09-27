@@ -125,6 +125,18 @@ components:
           writeOnly: true
       required:
       - token
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
     GoogleSocialAuth:
       type: object
       properties:
@@ -154,18 +166,6 @@ components:
           maxLength: 200
       required:
       - username
-    TokenRefresh:
-      type: object
-      properties:
-        access:
-          type: string
-          readOnly: true
-        refresh:
-          type: string
-          writeOnly: true
-      required:
-      - access
-      - refresh
   securitySchemes:
     jwtAuth:
       type: http

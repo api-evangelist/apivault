@@ -6,7 +6,7 @@ tags:
   - API Catalog
   - API Directory
   - API Discovery
-  - Open-Source
+  - Open Source
   - Public APIs
 tags_raw:
   - API Catalog
@@ -14,17 +14,24 @@ tags_raw:
   - API Discovery
   - Open Source
   - Public APIs
+  - Open-Source
 type: Index
 deliveryModel:
   model: unknown
+  license_evidence:
+    repo: exa-studio/apivault
+    spdx: NOASSERTION
+    stars: 701
   open_source: unknown
-  commercial: false
+  commercial: true
   callable_host: false
   label: Delivery model not determined — needs a product licence on record
   confidence: low
   source:
+  - openapi
+  - pricing
   - repository-unlicensed
-  generated: '2026-08-28'
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: freemium
