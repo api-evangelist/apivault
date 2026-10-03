@@ -48,6 +48,17 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    CategoryCount:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 100
+        api_count:
+          type: integer
+      required:
+      - api_count
+      - name
     Category:
       type: object
       properties:
@@ -59,17 +70,6 @@ components:
           maxLength: 100
       required:
       - id
-      - name
-    CategoryCount:
-      type: object
-      properties:
-        name:
-          type: string
-          maxLength: 100
-        api_count:
-          type: integer
-      required:
-      - api_count
       - name
   securitySchemes:
     jwtAuth:

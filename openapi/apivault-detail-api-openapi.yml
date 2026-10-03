@@ -32,6 +32,9 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    BlankEnum:
+      enum:
+      - ''
     API:
       type: object
       properties:
@@ -74,9 +77,6 @@ components:
       - liked_by_user
       - name
       - url
-    BlankEnum:
-      enum:
-      - ''
     AuthEnum:
       enum:
       - apiKey
