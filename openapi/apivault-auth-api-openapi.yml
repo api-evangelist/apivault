@@ -117,6 +117,33 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    GoogleSocialAuth:
+      type: object
+      properties:
+        auth_token:
+          type: string
+      required:
+      - auth_token
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          writeOnly: true
+      required:
+      - access
+      - refresh
+    TokenVerify:
+      type: object
+      properties:
+        token:
+          type: string
+          writeOnly: true
+      required:
+      - token
     SafeUser:
       type: object
       description: A safe Serializer of the default django auth user model
@@ -139,33 +166,6 @@ components:
           maxLength: 200
       required:
       - username
-    TokenVerify:
-      type: object
-      properties:
-        token:
-          type: string
-          writeOnly: true
-      required:
-      - token
-    TokenRefresh:
-      type: object
-      properties:
-        access:
-          type: string
-          readOnly: true
-        refresh:
-          type: string
-          writeOnly: true
-      required:
-      - access
-      - refresh
-    GoogleSocialAuth:
-      type: object
-      properties:
-        auth_token:
-          type: string
-      required:
-      - auth_token
   securitySchemes:
     jwtAuth:
       type: http

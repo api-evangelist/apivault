@@ -36,6 +36,9 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    BlankEnum:
+      enum:
+      - ''
     APICreate:
       type: object
       properties:
@@ -66,9 +69,6 @@ components:
       - https
       - name
       - url
-    BlankEnum:
-      enum:
-      - ''
     AuthEnum:
       enum:
       - apiKey
