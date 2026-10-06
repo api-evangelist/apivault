@@ -48,7 +48,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/apivault.png
 access: 3rd-Party
 created: '2025-03-01'
-modified: '2026-09-04'
+modified: '2026-10-06'
 position: Consuming
 description: >-
   Apivault is an open-source directory and gateway for discovering public APIs.
@@ -320,6 +320,8 @@ apis:
   - type: Documentation
     url: https://api.apivault.dev/api/schema/swagger-ui/
 common:
+  - url: https://apivault.dev/categories/News
+    type: Blog
   - type: Overlay
     url: overlays/apivault-openapi-overlay.yaml
   - type: Website
