@@ -1,4 +1,4 @@
-# Apivault (apivault)
+# Apivault
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,60 +66,134 @@
 
 Apivault is an open-source directory and gateway for discovering public APIs. The platform catalogs thousands of free and public APIs across 51 categories including animals, anime, blockchain, cryptocurrency, finance, health, music, news, and weather, enabling developers to find and explore APIs for application development.
 
-**URL:** [https://apivault.dev/](https://apivault.dev/)
+**Areas:** API Catalog · API Directory · API Discovery · Open Source · Public APIs
 
-**Run:** [Capabilities Using Naftiko](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=company-api-evangelist&utm_content=repo)
+## Apivault on APIs.io
 
-## Tags:
+Everything profiled for Apivault is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/apivault/](https://apis.io/providers/apivault/)** — or go straight to one of the APIs or properties below.
 
- - API Catalog, API Directory, API Discovery, Open Source, Public APIs
+### APIs (12)
 
-## Timestamps
+- [Apivault All API](https://apis.io/apis/apivault/apivault-all-api/) — The all API from Apivault — 1 operation(s) for all.
+- [Apivault Auth API](https://apis.io/apis/apivault/apivault-auth-api/) — The auth API from Apivault — 4 operation(s) for auth.
+- [Apivault Categories API](https://apis.io/apis/apivault/apivault-categories-api/) — The categories API from Apivault — 2 operation(s) for categories.
+- [Apivault Category API](https://apis.io/apis/apivault/apivault-category-api/) — The category API from Apivault — 1 operation(s) for category.
+- [Apivault Count API](https://apis.io/apis/apivault/apivault-count-api/) — The count API from Apivault — 1 operation(s) for count.
+- [Apivault Create API](https://apis.io/apis/apivault/apivault-create-api/) — The create API from Apivault — 1 operation(s) for create.
+- [Apivault Detail API](https://apis.io/apis/apivault/apivault-detail-api/) — The detail API from Apivault — 1 operation(s) for detail.
+- [Apivault Interaction API](https://apis.io/apis/apivault/apivault-interaction-api/) — The interaction API from Apivault — 2 operation(s) for interaction.
+- [Apivault My API](https://apis.io/apis/apivault/apivault-my-api-api/) — The my_api API from Apivault — 1 operation(s) for my_api.
+- [Apivault Pending API](https://apis.io/apis/apivault/apivault-pending-api/) — The pending API from Apivault — 1 operation(s) for pending.
+- [Apivault Random API](https://apis.io/apis/apivault/apivault-random-api/) — The random API from Apivault — 1 operation(s) for random.
+- [Apivault Search API](https://apis.io/apis/apivault/apivault-search-api/) — The search API from Apivault — 1 operation(s) for search.
 
-- **Created:** 2025-03-01
-- **Modified:** 2026-04-19
+### Published properties
 
-## APIs
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-### Apivault
-Apivault is a free, open-source API directory that serves as a gateway to a world of public APIs. It catalogs APIs across 51 categories with details on authentication method, CORS support, and HTTPS availability. Developers can search, discover, submit, and browse APIs across all major domains. Licensed under CC BY-NC-ND 4.0.
+#### MCP servers (1)
 
-**Human URL:** [https://apivault.dev/](https://apivault.dev/)
+Model Context Protocol servers that expose the API to agents.
 
-#### Tags:
+- [apivault](https://apis.io/servers/apivault/apivault/)
 
- - API Catalog, API Directory, API Discovery, Open Source, Public APIs
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://apivault.dev/)
-- [GitHubRepository](https://github.com/Exifly/ApiVault)
+- [Apivault Agentic Access](https://apis.io/agentic-access/apivault/apivault-agentic-access/)
 
-## Common Properties
+#### Overlays (1)
 
-- [GitHubRepository](https://github.com/Exifly/ApiVault)
+OpenAPI overlays, including conversational phrasing for each operation.
 
-## Features
+- [Apivault Openapi Overlay](https://apis.io/overlays/apivault/apivault-openapi-overlay/)
 
-| Name | Description |
-|------|-------------|
-| API Directory | Comprehensive directory of free and public APIs across 51 categories. |
-| API Search and Discovery | Search and discover APIs by category including finance, health, weather, blockchain, and more. |
-| API Submission | Developers can submit their own APIs with authentication type, CORS, and HTTPS details. |
-| Trending and Random APIs | Discover trending and randomly surfaced APIs across the catalog. |
-| User Accounts | User account management via Google sign-in for tracking submitted and liked APIs. |
-| Open Source | Fully open-source project available on GitHub under CC BY-NC-ND 4.0 license. |
+#### Security (2)
 
-## Use Cases
+Authentication, trust centre, and vulnerability disclosure.
 
-| Name | Description |
-|------|-------------|
-| API Discovery | Find free and public APIs for application development across 51 categories. |
-| API Promotion | Submit and promote your own API to a community of developers. |
-| Rapid Prototyping | Quickly discover APIs to accelerate prototype and proof-of-concept development. |
+- [Apivault Authentication](https://apis.io/security/apivault/apivault-authentication/)
+- [Apivault Domain Security](https://apis.io/security/apivault/apivault-domain-security/)
 
-## Maintainers
+#### Plans and pricing (1)
 
-**FN:** Kin Lane
+Published plans, tiers and prices.
 
-**Email:** info@apievangelist.com
+- [Apivault Plans Pricing](https://apis.io/plans/apivault/apivault-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Apivault Rate Limits](https://apis.io/rate-limits/apivault/apivault-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Apivault Finops](https://apis.io/finops/apivault/apivault-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://apivault.dev/)
+- [API reference](https://api.apivault.dev/api/schema/swagger-ui/)
+- [Support](https://github.com/exa-studio/ApiVault/issues)
+- [Blog](https://apivault.dev/categories/News)
+- [Privacy policy](https://apivault.dev/privacy-policy)
+- [GitHub](https://github.com/exa-studio)
+
+## API Evangelist rating
+
+**Kin Score 29.3** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 40.1 |
+| Contract governance | 4.5 |
+| Operational transparency | 18.4 |
+| Developer ergonomics | 37.5 |
+| Access clarity | 10.5 |
+
+**Agent readiness 23.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 20.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/apivault/](https://apis.io/providers/apivault/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Apivault: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/apivault/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
